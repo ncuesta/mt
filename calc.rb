@@ -9,8 +9,8 @@ today = if ARGV.size > 0
           Date.today
         end
 
-data_path = './facturacion.csv'
-categories_path = './categorias.json'
+data_path = './bills.csv'
+categories_path = './categories.json'
 
 class Bill
   attr_accessor :date, :amount
@@ -57,7 +57,7 @@ a_year_ago = 1.year.ago(today)
 included_bills = bills.select { |b| b.date >= a_year_ago && b.date <= today }
 total = included_bills.map(&:amount).inject(&:+)
 
-puts "Total entre %{start} y %{end}: %{total}" % { start: a_year_ago, end: today, total: total }
+puts "Total between %{start} and %{end}: %{total}" % { start: a_year_ago, end: today, total: total }
 range_and_category = categories.select { |range, data| range.include? total }
 category = range_and_category.first.last
-puts "Categoría: %{name}, costo: $ %{cost}" % { name: category.name, cost: category.cost }
+puts "Category: %{name}, cost: $ %{cost}" % { name: category.name, cost: category.cost }
