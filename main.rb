@@ -4,7 +4,7 @@ require 'active_support/all'
 require 'bigdecimal'
 
 today = if ARGV.size > 0
-          Date.parse(ARGV[1])
+          Date.parse(ARGV[0])
         else
           Date.today
         end
@@ -53,7 +53,7 @@ end
 bills = load_bills(data_path)
 categories = load_categories(categories_path)
 
-a_year_ago = 1.year.ago(today)
+a_year_ago = 1.year.ago(today) + 1.day
 included_bills = bills.select { |b| b.date >= a_year_ago && b.date <= today }
 total = included_bills.map(&:amount).inject(&:+)
 
