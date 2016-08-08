@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'csv'
 require 'json'
 require 'active_support/all'
@@ -60,4 +61,4 @@ total = included_bills.map(&:amount).inject(&:+)
 puts "Total between %{start} and %{end}: %{total}" % { start: a_year_ago, end: today, total: total }
 range_and_category = categories.select { |range, data| range.include? total }
 category = range_and_category.first.last
-puts "Category: %{name}, cost: $ %{cost} (still $ %{air} until the next category)" % { name: category.name, cost: category.cost, air: category.upto - total }
+puts "Category: %{name}, cost: $ %{cost} (still $ %{air} until the next category)" % { name: category.name, cost: category.cost, air: (category.upto - total).to_f }
